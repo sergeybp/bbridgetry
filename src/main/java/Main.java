@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws Exception {
         if (args.length < 2) {
             System.err.println("Args: Username + Password for bbridge API");
         }
@@ -19,7 +19,7 @@ public class Main {
         images.add("http://www.factroom.ru/facts/wp-content/uploads/2014/02/Koshki-620x465.jpg");
         //images.add("https://ptzgovorit.ru/sites/default/files/original_nodes/sibirskaya-koshka2.jpg");
 
-        System.out.println(a.fullCycle(texts, images));
+        System.out.println(a.fullCycle(texts, images).toString());
     }
 
 }

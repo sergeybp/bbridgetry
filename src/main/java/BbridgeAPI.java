@@ -31,7 +31,7 @@ class BbridgeAPI {
         client = HttpClientBuilder.create().build();
     }
 
-    String fullCycle(ArrayList<String> texts, ArrayList<String> images) throws IOException, URISyntaxException {
+    JsonObject fullCycle(ArrayList<String> texts, ArrayList<String> images) throws Exception {
         JsonObject obj = new JsonObject();
         obj.addProperty("username", username);
         obj.addProperty("password", password);
@@ -42,7 +42,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         HttpResponse response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 200) {
-            return "[!ERROR!] WHILE AUTHORIZATION";
+            throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
         }
         String token = getJsonFromResponse(response).get("token").toString();
         token = token.substring(1, token.length() - 1);
@@ -70,7 +70,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 202) {
-            return "[!ERROR!] WHILE AUTHORIZATION";
+            throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
         }
         String requestId = getJsonFromResponse(response).get("request_id").toString();
         requestId = requestId.substring(1, requestId.length() - 1);
@@ -85,12 +85,12 @@ class BbridgeAPI {
         while (true) {
             response = client.execute(request);
             if(response.getStatusLine().getStatusCode() != 204 && response.getStatusLine().getStatusCode() != 200){
-                return "[!ERROR!] WHILE AUTHORIZATION";
+                throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
             }
             if(response.getStatusLine().getStatusCode() == 204){
                 continue;
             }
-            return EntityUtils.toString(response.getEntity());
+            return (JsonObject) ((new JsonParser()).parse(EntityUtils.toString(response.getEntity())));
         }
     }
 
