@@ -1,3 +1,6 @@
+package APIs;
+
+import APIs.APIException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -31,7 +34,7 @@ class BbridgeAPI {
         client = HttpClientBuilder.create().build();
     }
 
-    JsonObject fullCycle(ArrayList<String> texts, ArrayList<String> images) throws Exception {
+    JsonObject fullCycle(ArrayList<String> texts, ArrayList<String> images) throws APIException, URISyntaxException, IOException {
         JsonObject obj = new JsonObject();
         obj.addProperty("username", username);
         obj.addProperty("password", password);
@@ -42,7 +45,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         HttpResponse response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
+            throw new APIException(response.getStatusLine().getStatusCode());
         }
         String token = getJsonFromResponse(response).get("token").toString();
         token = token.substring(1, token.length() - 1);
@@ -51,6 +54,10 @@ class BbridgeAPI {
         builder.setPath("/v1/profiling/personal")
                 .setParameter("lang", "en")
                 .setParameter("attr", "gender")
+                .addParameter("attr", "income")
+                .addParameter("attr", "education_level")
+                .addParameter("attr", "relationship")
+                .addParameter("attr", "occupation")
                 .addParameter("attr", "age_group");
         obj = new JsonObject();
         JsonArray array = new JsonArray();
@@ -70,7 +77,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 202) {
-            throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
+            throw new APIException(response.getStatusLine().getStatusCode());
         }
         String requestId = getJsonFromResponse(response).get("request_id").toString();
         requestId = requestId.substring(1, requestId.length() - 1);
@@ -84,10 +91,10 @@ class BbridgeAPI {
 
         while (true) {
             response = client.execute(request);
-            if(response.getStatusLine().getStatusCode() != 204 && response.getStatusLine().getStatusCode() != 200){
-                throw new Exception("[!ERROR!] WHILE AUTHORIZATION");
+            if (response.getStatusLine().getStatusCode() != 204 && response.getStatusLine().getStatusCode() != 200) {
+                throw new APIException(response.getStatusLine().getStatusCode());
             }
-            if(response.getStatusLine().getStatusCode() == 204){
+            if (response.getStatusLine().getStatusCode() == 204) {
                 continue;
             }
             return (JsonObject) ((new JsonParser()).parse(EntityUtils.toString(response.getEntity())));
