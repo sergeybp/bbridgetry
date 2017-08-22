@@ -1,6 +1,7 @@
 package model;
 
 import com.google.gson.JsonObject;
+import com.sun.org.apache.regexp.internal.RE;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -36,6 +37,10 @@ public class Logic {
     @GET
     @Path("/get_result")
     public Response get(@QueryParam("job_id") String jobId) {
+
+        if(!Utils.workingMap.containsKey(jobId)){
+            return Response.status(404).build();
+        }
 
         if (Utils.workingMap.get(jobId).equals(Utils.EMPTY)) {
             return Response.status(449).build();
