@@ -45,7 +45,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         HttpResponse response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new APIException(response.getStatusLine().getStatusCode());
+            throw new APIException(response.getStatusLine().getStatusCode(), "BBridgeAPI|auth");
         }
         String token = getJsonFromResponse(response).get("token").toString();
         token = token.substring(1, token.length() - 1);
@@ -77,7 +77,7 @@ class BbridgeAPI {
         post.setEntity(requestEntity);
         response = client.execute(post);
         if (response.getStatusLine().getStatusCode() != 202) {
-            throw new APIException(response.getStatusLine().getStatusCode());
+            throw new APIException(response.getStatusLine().getStatusCode(), "BBridgeAPI|postdata");
         }
         String requestId = getJsonFromResponse(response).get("request_id").toString();
         requestId = requestId.substring(1, requestId.length() - 1);
@@ -92,7 +92,7 @@ class BbridgeAPI {
         while (true) {
             response = client.execute(request);
             if (response.getStatusLine().getStatusCode() != 204 && response.getStatusLine().getStatusCode() != 200) {
-                throw new APIException(response.getStatusLine().getStatusCode());
+                throw new APIException(response.getStatusLine().getStatusCode(), "BBridgeAPI|getresult");
             }
             if (response.getStatusLine().getStatusCode() == 204) {
                 continue;

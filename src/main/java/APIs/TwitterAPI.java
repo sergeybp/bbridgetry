@@ -68,7 +68,7 @@ public class TwitterAPI {
         consumer.sign(request);
         HttpResponse response = client.execute(request);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new APIException(response.getStatusLine().getStatusCode());
+            throw new APIException(response.getStatusLine().getStatusCode(),  "TwitterAPI|getFollowers?user="+username);
         }
         JsonObject result = getJsonFromResponse(response);
 
@@ -87,7 +87,7 @@ public class TwitterAPI {
         client = HttpClientBuilder.create().build();
         HttpResponse response = client.execute(request);
         if (response.getStatusLine().getStatusCode() != 200) {
-            throw new APIException(response.getStatusLine().getStatusCode());
+            throw new APIException(response.getStatusLine().getStatusCode(), "TwitterAPI|getTimeline?user="+user);
         }
         JsonArray result = getJsonArrayFromResponse(response);
         ArrayList<String> texts = new ArrayList<>();
