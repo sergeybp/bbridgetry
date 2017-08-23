@@ -11,15 +11,15 @@ Running:
 * Program arguments: port
 * config.properties
 
-    ** bbridgeusername=xxx
+    bbridgeusername=xxx
 
-    ** bbridgepassword=xxx
+    bbridgepassword=xxx
 
-    ** consumerkey=xxx
+    consumerkey=xxx
 
-    ** consumersecret=xxx
+    consumersecret=xxx
 
-    ** accesstoken=xxx
+    accesstoken=xxx
 
-    ** accesssecret=xxx
+    accesssecret=xxx
 
