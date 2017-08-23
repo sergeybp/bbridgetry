@@ -10,10 +10,10 @@ API methods:
 Running:
 * Program arguments: port
 * config.properties
-    bbridgeusername=xxx
-    bbridgepassword=xxx
-    consumerkey=xxx
-    consumersecret=xxx
-    accesstoken=xxx
-    accesssecret=xxx
+    ** bbridgeusername=xxx
+    ** bbridgepassword=xxx
+    ** consumerkey=xxx
+    ** consumersecret=xxx
+    ** accesstoken=xxx
+    ** accesssecret=xxx
 
