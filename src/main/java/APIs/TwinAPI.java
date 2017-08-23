@@ -1,7 +1,5 @@
 package APIs;
 
-import APIs.APIException;
-import APIs.BbridgeAPI;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import config.JdbcDaoContextConfiguration;
@@ -20,7 +18,7 @@ import java.util.Properties;
 
 public class TwinAPI {
 
-    String username;
+    private String username;
 
     private TwinAPIDao twinAPIDao = new JdbcDaoContextConfiguration().twinAPIJdbcDao();
 
@@ -37,7 +35,7 @@ public class TwinAPI {
         String inDB = twinAPIDao.getJsonString(username, System.currentTimeMillis());
         switch (inDB){
             case "UPDATE":
-                needCreate = true;
+                needUpdate = true;
                 break;
             case "NO":
                 needCreate = true;

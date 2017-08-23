@@ -4,7 +4,6 @@ import entities.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-import javax.jws.soap.SOAPBinding;
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -42,25 +41,21 @@ public class TwinAPIJdbcDao extends JdbcDaoSupport implements TwinAPIDao {
     }
 
     @Override
-    public boolean setJsonString(String username, String json) {
+    public void setJsonString(String username, String json) {
         String sql = "INSERT INTO users (username, json, lastUpdatedTimestamp) VALUES (?, ?, ?) ";
         try {
             String time = "" + System.currentTimeMillis();
             getJdbcTemplate().update(sql, username, json, time);
         } catch (Exception ignored) {
-            return false;
         }
-        return true;
     }
 
     @Override
-    public boolean updateJsonString(String username, String json) {
+    public void updateJsonString(String username, String json) {
         String sql = "UPDATE users SET lastUpdatedTimestamp = "+System.currentTimeMillis()+" , json = "+json+" WHERE users.username = " + username;
         try {
             getJdbcTemplate().update(sql);
-        } catch (Exception e) {
-            return false;
+        } catch (Exception ignored) {
         }
-        return true;
     }
 }

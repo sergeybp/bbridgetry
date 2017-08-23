@@ -9,7 +9,6 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 
 public class SingleRun extends Thread {
 

@@ -5,9 +5,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
-/**
- * Created by sergeybp on 20.07.17.
- */
 public class JdbcDaoContextConfiguration {
 
     public TwinAPIJdbcDao twinAPIJdbcDao() {

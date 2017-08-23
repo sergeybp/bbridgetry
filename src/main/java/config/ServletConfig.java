@@ -7,9 +7,6 @@ import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import model.Logic;
 
-/**
- * Created by sergeybp on 20.07.17.
- */
 public class ServletConfig extends GuiceServletContextListener {
 
     @Override

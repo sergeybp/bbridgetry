@@ -2,10 +2,8 @@ import com.google.inject.servlet.GuiceFilter;
 import com.sun.grizzly.http.embed.GrizzlyWebServer;
 import com.sun.grizzly.http.servlet.ServletAdapter;
 import config.ServletConfig;
-import model.Utils;
 
 import javax.servlet.http.HttpServlet;
-import java.io.UTFDataFormatException;
 
 public class Main {
 

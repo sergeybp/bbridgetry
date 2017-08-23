@@ -1,7 +1,5 @@
-import APIs.APIException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -12,15 +10,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Client {
+class Client {
 
-    public void run(String username) throws IOException {
+    void run(String username) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost("http://0.0.0.0:9999/start_job_user?username="+username);
         HttpResponse response = client.execute(post);
-        //System.out.println(response);
         JsonObject obj = getJsonFromResponse(response);
-        //System.out.println(obj.toString());
 
         while (true) {
             HttpGet get = new HttpGet("http://0.0.0.0:9999/get_result?job_id=" + obj.get("job_id").getAsString());

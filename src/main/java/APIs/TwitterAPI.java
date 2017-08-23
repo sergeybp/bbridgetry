@@ -1,6 +1,5 @@
 package APIs;
 
-import APIs.APIException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,23 +20,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class TwitterAPI {
-
-    private String PUNCTUATION = "`.,:?() ";
+class TwitterAPI {
 
     private HttpClient client;
-    private String consumerKey;
-    private String consumerSecret;
-    private String token;
-    private String tokenSecret;
     private OAuthConsumer consumer;
 
-    public TwitterAPI(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+    TwitterAPI(String consumerKey, String consumerSecret, String token, String tokenSecret) {
         client = HttpClientBuilder.create().build();
-        this.consumerKey = consumerKey;
-        this.consumerSecret = consumerSecret;
-        this.token = token;
-        this.tokenSecret = tokenSecret;
         consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
         consumer.setTokenWithSecret(token, tokenSecret);
     }
@@ -95,13 +84,14 @@ public class TwitterAPI {
         for (JsonElement tmp : result) {
             try {
                 String x = tmp.getAsJsonObject().get("text").getAsString();
-                String toAdd = "";
+                StringBuilder toAdd = new StringBuilder();
                 for (int i = 0; i < x.length(); i++) {
+                    String PUNCTUATION = "`.,:?() ";
                     if ((x.charAt(i) >= 'a' && x.charAt(i) <= 'z') || (x.charAt(i) >= 'A' && x.charAt(i) <= 'Z') || (PUNCTUATION.contains(""+x.charAt(i)))) {
-                        toAdd += x.charAt(i);
+                        toAdd.append(x.charAt(i));
                     }
                 }
-                texts.add(toAdd);
+                texts.add(toAdd.toString());
             } catch (Exception ignored) {
                 //no text in tweet
             }

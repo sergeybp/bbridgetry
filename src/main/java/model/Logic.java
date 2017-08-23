@@ -1,7 +1,6 @@
 package model;
 
 import com.google.gson.JsonObject;
-import com.sun.org.apache.regexp.internal.RE;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,9 +9,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * Created by sergeybp on 20.07.17.
- */
 
 @Path("")
 public class Logic {
