@@ -23,7 +23,7 @@ public class TwinAPIJdbcDao extends JdbcDaoSupport implements TwinAPIDao {
 
 
     @Override
-    public String getJsonString(String username, long timestamp) {
+    public synchronized String getJsonString(String username, long timestamp) {
         String sql = "SELECT * FROM users";
         List<User> users = getJdbcTemplate().query(sql, new BeanPropertyRowMapper<>(User.class));
         for (User x : users) {
@@ -41,7 +41,7 @@ public class TwinAPIJdbcDao extends JdbcDaoSupport implements TwinAPIDao {
     }
 
     @Override
-    public void setJsonString(String username, String json) {
+    public synchronized void setJsonString(String username, String json) {
         String sql = "INSERT INTO users (username, json, lastUpdatedTimestamp) VALUES (?, ?, ?) ";
         try {
             String time = "" + System.currentTimeMillis();
@@ -51,7 +51,7 @@ public class TwinAPIJdbcDao extends JdbcDaoSupport implements TwinAPIDao {
     }
 
     @Override
-    public void updateJsonString(String username, String json) {
+    public synchronized void updateJsonString(String username, String json) {
         String sql = "UPDATE users SET lastUpdatedTimestamp = "+System.currentTimeMillis()+" , json = "+json+" WHERE users.username = " + username;
         try {
             getJdbcTemplate().update(sql);
